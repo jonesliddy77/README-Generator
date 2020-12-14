@@ -109,9 +109,12 @@ function writeToFile(data, pic) {
     * [Demo](#Demo)
     * [Language](#Language)
     * [Developer-Notes](#Developer-Notes)
+    * [Installation](#Installation)
+    * [Usage](#Usage)
     * [Contributors](#Contributors)
     * [License](#License)
-    
+    * [Test](#Test)
+    * [Questions?](#Questions?)
     ##Links
     *GitHub Repo:[Repository](${data.githubLink})
 
@@ -148,7 +151,7 @@ function writeToFile(data, pic) {
 
     ##License
     MIT © ${data.license}`;
-  fs.writeFile("README.md", content, "utf8", function (err) {
+  fs.writeFile("README2.md", content, "utf8", function (err) {
     if (err) {
       return console.log(err);
     }
@@ -170,6 +173,3 @@ function UsersBadge(userInput) {
   return newBadges;
 }
 
-function init() {}
-
-init();

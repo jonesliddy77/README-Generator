@@ -2,17 +2,11 @@ var inquirer = require("inquirer");
 var axios = require("axios");
 var fs = require("fs");
 
-inquirer
-  .prompt([
+const inputs = () => inquirer.prompt([
     {
       type: "input",
       message: "What is your github username:",
       name: "username",
-    },
-    {
-      type: "input",
-      message: "Enter badges (Ex: label, message, color; label, message, color;):",
-      name: "badges",
     },
     {
       type: "input",
@@ -21,12 +15,12 @@ inquirer
     },
     {
       type: "input",
-      message: "What is your github repo link:",
+      message: "What is your github link:",
       name: "githubLink",
     },
     {
       type: "input",
-      message: "What is your Project link:",
+      message: "What is your Project repo link:",
       name: "projectLink",
     },
     {
@@ -42,7 +36,7 @@ inquirer
     {
       type: "input",
       message: "What Languages did you use to code:",
-      name: "languages",
+      name: "language",
     },
     {
       type: "input",
@@ -71,14 +65,45 @@ inquirer
     },
     {
       type: "input",
+      message: "Enter your GitHub profile link:",
+      name: "questions2",
+    },
+    {
+      type: "input",
       message: "What were some test you did:",
       name: "test",
     },
     {
       type: "input",
+      message: "Message for badge:",
+      name: "badgeMessage",
+    },
+    {
+      type: "list",
       message: "Enter licensing information:",
       name: "license",
+      choices: [
+        "BSD",
+        "MIT",
+        "GPL"
+    ]
     },
+    {
+      type: "list",
+      message: "What color badge would you like:",
+      name: "licenseColor",
+      choices: [
+        "brightgreen",
+        "yellowgreen",
+        "yellow",
+        "orange",
+        "red",
+        "grey",
+        "lightgrey",
+        "blue"
+
+    ]
+    }
   ])
   .then(function (data) {
     const queryUrl = `https://api.github.com/users/${data.username}`;
@@ -87,89 +112,76 @@ inquirer
       .then(function (result) {
         writeToFile(data, result.data.avatar_url);
       })
-      .catch((error) => {
-        console.log("incorrect GitHub username");
-      });
   });
 
-function writeToFile(data, pic) {
-  const badges = UsersBadge(data.badges);
-  const content = ` ${badges}
-    ![profile image](${pic})
-    # ${data.title}  
+const writeToFile = (data, pic) => {
+  const content = ` 
+  ![badge](https://img.shields.io/badge/license-${data.badgeMessage}-${data.licenseColor}.png)
+
+  ![profile image](${pic})
+  # ${data.title}  
     
-    ## Description
+  ## Description
     ${data.description}
   
     
-    ## Table of Contents
-    
-    * [Links](#Links)
-    * [References](#References)
-    * [Demo](#Demo)
-    * [Language](#Language)
-    * [Developer-Notes](#Developer-Notes)
-    * [Installation](#Installation)
-    * [Usage](#Usage)
-    * [Contributors](#Contributors)
-    * [License](#License)
-    * [Test](#Test)
-    * [Questions?](#Questions?)
-    ##Links
-    *GitHub Repo:[Repository](${data.githubLink})
+  ## Table of Contents
 
-    *Project:[Link](${data.projectLink})
+  * [Links](#Links)
+  * [References](#References)
+  * [Demo](#Demo)
+  * [Language](#Language)
+  * [Developer-Notes](#Developer-Notes)
+  * [Installation](#Installation)
+  * [Usage](#Usage)
+  * [Contributors](#Contributors)
+  * [License](#License)
+  * [Test](#Test)
+  * [Questions?](#Questions?)
+  
 
-    ##References
+  ## Links
+  * GitHub Repo: [Repository](${data.githubLink})
+
+  * Project: [Link](${data.projectLink})
+
+  ## References
 
   > - ${data.reference}
 
     
-    ##Demo
-    ![Demo](put gif path here)
+  ## Demo
+  ![Demo](put gif path here)
 
-    ##Language
-    * ${data.language}
+  ## Language
+  * ${data.language}
 
-    ##Developer-Notes
-    * ${data.developerNotes}
+  ## Developer-Notes
+  * ${data.developerNotes}
     
-    ##Installation   
-    * ${data.install}
+  ## Installation   
+  * ${data.install}
 
-    ##Usage
-    * ${data.usage}
+  ## Usage
+  * ${data.usage}
 
-    ##Contributors
-    * ${data.contributors}
-    ##Test
-    * ${data.test}
+  ## Contributors
+  * ${data.contributors}
+  ## Test
+  * ${data.test}
 
-    ##Questions?
-    *[Email] ${data.questions}
-    *[GitHub Profile] ${data.questions}
+  ## Questions?
+  * Email - ${data.questions}
+  * [GitHub Profile] ${data.questions2}
 
-    ##License
-    MIT © ${data.license}`;
-  fs.writeFile("README2.md", content, "utf8", function (err) {
+  ## License
+    Licensed under ${data.license}`;
+  fs.writeFile("README.md", content, "utf8", function (err) {
     if (err) {
       return console.log(err);
     }
     console.log("ReadMe made");
   });
 }
-function UsersBadge(userInput) {
-  const Url = [];
-  const takeOutSpaces = userInput.split(" ").join("");
-  const badges = takeOutSpaces.split(";");
-  let newBadges = "";
-  badges.forEach((badge) => {
-    badge = badge.split(",");
-      Url.push(`![${badge[0]}](https://img.shields.io/static/v1?label=<${badge[0]}>&message=<${badge[1]}>&color=<${badge[2]}>)`);
-  });
-  for (let i = 0; i < Url.length; i++) {
-    newBadges += Url[i] + " ";
-  }
-  return newBadges;
-}
 
+inputs();

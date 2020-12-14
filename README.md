@@ -1,24 +1,42 @@
 # README-Generator
 
 ## Description
-* Makes you an amazing Readme!
+* Generates a ReadMe for developers through the terminal using node.
 
 ## Table of Contents
 
 * [Links](#Links)
+* [Installation](#Installation)
+* [Usage](#Usage)
 * [Demo](#Demo)
 * [Language](#Language)
 * [Reference](#Reference)
 * [License](#License)
 
+## Demo
+
+  ![Demo](assets/demo-readme.gif)
+  
+## Demo Pic
+
+  ![Demo](assets/screenshot.png)
+
 ## Links
 
 * Project Repo: [Repository](https://github.com/jonesliddy77/README-Generator)
 
-
-## Demo
-
-![Demo](demo-readme.gif)
+## Installation
+``` 
+npm i 
+```  
+``` 
+node index.js 
+```
+```
+npm i axios
+```
+## Usage
+Open up terminal in VScode, make sure you are in the right pash then type node index.js. After the questions are answers the ReadME me generate.
 
 ## Language
 
@@ -37,3 +55,5 @@ These are the websites I used as references:
 ## License
 
 MIT © [Jones Liddy](https://github.com/jonesliddy77)
+
+

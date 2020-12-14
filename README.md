@@ -13,7 +13,8 @@
 
 ## Links
 
-* Project Repo: [Repository](https://github.com/jonesliddy77/jonesliddy77.githubio)
+* Project Repo: [Repository](https://github.com/jonesliddy77/README-Generator)
+
 
 ## Demo
 
